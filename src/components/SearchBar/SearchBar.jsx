@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import './SearchBar.css';
 import fetchProducts from '../../api/fetchProducts';
+import AppContext from '../../context/AppContext';
 // import AppContext from '../../context/AppContext';
 
 function SearchBar() {
 
-  const [searchValue, setSearchValue] = useState('');
+  const { setProducts, setLoading } = useContext(AppContext);
 
-  // const { name } = useContext(AppContext);
+  const [searchValue, setSearchValue] = useState('');
 
   const handleSearch = async (event) => {
     event.preventDefault();
-    
+    setLoading(true);
     const products = await fetchProducts(searchValue);
-    console.log(products);
+    setLoading(false);
+    setProducts(products);
+    
   }
 
   return (

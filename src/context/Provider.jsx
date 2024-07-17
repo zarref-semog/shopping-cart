@@ -1,22 +1,33 @@
 import React, { useState } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 
 function Provider({ children }) {
-
-  const [name, setName] = useState('Manual do Dev');
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState([true]);
+  const [cartItems, setCartItems] = useState([]);
+  const [isCartVisible, setIsCartVisible] = useState(false);
 
   const value = {
-    name, setName
+    products,
+    setProducts,
+    loading,
+    setLoading,
+    cartItems,
+    setCartItems,
+    isCartVisible,
+    setIsCartVisible
   };
-  
-  <AppContext.Provider value={value}>
-    {children}
-  </AppContext.Provider>
+
+  return (
+    <AppContext.Provider value={value}>
+      {children}
+    </AppContext.Provider>
+  );
 }
 
-export default Provider;
-
 Provider.propTypes = {
-  children: propTypes.any
-}.isRequired;
+  children: PropTypes.node.isRequired,
+};
+
+export default Provider;
